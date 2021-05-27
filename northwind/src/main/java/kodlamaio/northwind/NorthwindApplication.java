@@ -24,8 +24,7 @@ public class NorthwindApplication {
 	    public Docket api() { 
 	        return new Docket(DocumentationType.SWAGGER_2)  
 	          .select()                                  
-	          .apis(RequestHandlerSelectors.basePackage("kodlamaio.northwind"))              
-	          .paths(PathSelectors.any())                          
+	          .apis(RequestHandlerSelectors.basePackage("kodlamaio.northwind"))                                      
 	          .build();                                           
 	    }
 
