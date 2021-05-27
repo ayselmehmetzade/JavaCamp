@@ -3,15 +3,18 @@ package kodlamaio.northwind.api.contollers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import kodlamaio.northwind.business.abstracts.ProductService;
 import kodlamaio.northwind.core.utilities.results.DataResult;
 import kodlamaio.northwind.core.utilities.results.Result;
+import kodlamaio.northwind.core.utilities.results.SuccessDataResult;
 import kodlamaio.northwind.entities.concretes.Product;
 
 @RestController
@@ -32,9 +35,37 @@ public class ProductsControllers {
 		return this.productService.getAll();
 	}
 
+	@GetMapping("/getallbypage")
+
+	public DataResult<List<Product>> getAllByPage(int pageNo, int pageSize) {
+		return this.productService.getAllByPage(pageNo,pageSize);
+	}
+	
 	@PostMapping("/add")
 	public Result add(@RequestBody Product product) {
 		return this.productService.add(product);
 	}
 
+	@GetMapping("/getbyproductname")
+	public DataResult<Product> getByProductName(@RequestParam String productName) {
+		return this.productService.getByProductName(productName);
+	}
+
+	@GetMapping("/getbyproductnameandcategoryid")
+	public DataResult<Product> getByProductNameAndCategoryId(@RequestParam("productName") String productName, @RequestParam("categoryId") int categoryId){
+		return this.productService.getByProductNameAndCategoryId(productName, categoryId);
+	}
+	
+	@GetMapping("/getbyproductnamecontains")
+	public DataResult<List<Product>> getByProductNameContains(@RequestParam String productName){
+		return this.productService.getByProductNameContains(productName);
+	}
+
+	@GetMapping("/getalldesc")
+	public DataResult<List<Product>> getAllSorted() {		
+		return this.productService.getAllSorted();
+	}
+	
+	
+	
 }
